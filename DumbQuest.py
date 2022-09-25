@@ -15,6 +15,12 @@ def buildenemy():
     return e_strength, e_luck
 
 
+def attackbonus(luckfactor):
+    randy = random.random()
+    luckystrike = luckfactor * randy
+    return int(luckystrike)
+
+
 # welcome screen
 
 clear()
@@ -221,18 +227,22 @@ if choice == "fight":
     if c_luck > e_luck:
         # character goes first
         while True:
-            print(f"{c_name} goes first and strikes a hit of {c_attack}")
+            power = attackbonus(c_luck)
+            print(f"{c_name} goes first and strikes a hit of {c_attack} plus {power}")
             print()
-            e_health = e_health - c_attack
+            e_health = e_health - (c_attack + power)
             print(f"Enemy's health is reduced to {e_health}")
             print()
             time.sleep(1)
-            print(f"Enemy goes next and strikes a hit of {e_attack}")
+            power = attackbonus(e_luck)
+            print(
+                f"Enemy goes next and strikes a hit of {e_attack} plus {power}")
             print()
-            health = health - e_attack
+            health = health - (e_attack + power)
             print(f"{c_name}'s health is reduced to {health}")
             print()
             time.sleep(1)
+            clear()
             if health <= 0:
                 break
             elif e_health <= 0:
@@ -256,18 +266,22 @@ if choice == "fight":
     elif c_luck < e_luck:
         # enemy goes first
         while True:
-            print(f"Enemy goes first and strikes a hit of {e_attack}")
+            power = attackbonus(e_luck)
+            print(
+                f"Enemy goes first and strikes a hit of {e_attack} plus {power}")
             print()
-            health = health - e_attack
+            health = health - (e_attack + power)
             print(f"{c_name}'s health is reduced to {health}")
             print()
             time.sleep(1)
-            print(f"{c_name} goes next and strikes a hit of {c_attack}")
+            power = attackbonus(c_luck)
+            print(f"{c_name} goes next and strikes a hit of {c_attack} plus {power}")
             print()
-            e_health = e_health - c_attack
+            e_health = e_health - (c_attack + power)
             print(f"Enemy's health is reduced to {e_health}")
             print()
             time.sleep(1)
+            clear()
             if health <= 0:
                 break
             elif e_health <= 0:
@@ -279,7 +293,7 @@ if choice == "fight":
                 clear()
                 print("Your dead!")
                 print()
-                input("Press any key to die...")
+                input("Press any key to rot...")
 
             elif health > e_health:
                 #enemy is dead
