@@ -8,8 +8,14 @@ import time
 def clear():
     os.system('cls')
 
-# welcome screen
 
+def buildenemy():
+    e_strength = random.randint(1, 50)
+    e_luck = 50 - e_strength
+    return e_strength, e_luck
+
+
+# welcome screen
 
 clear()
 print("*" * 100)
@@ -37,6 +43,7 @@ print("Please enter your characters name")
 c_name = input("> ")
 
 while points != 0:
+    points = 50
     clear()
     print(
         f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
@@ -50,12 +57,12 @@ while points != 0:
     c_luck = input("Please set your characters Luck: ")
     points = points - int(c_luck)
 
-    if points < 50 and points > 0:
+    if points != 0:
         print()
         print(f"You still have {points} points left please restart")
         print()
         input("Press any key to continue...")
-        points = 50
+
 
 # Stat adjusting
 
@@ -74,7 +81,8 @@ print(f"Strength:   {c_strength}")
 print()
 print(f"Luck:       {c_luck}")
 print()
-print("Confused? You should be. We've added a random number to your stats to make you unique i'm not promissing it's going to help though!")
+print("""Confused? You should be. We've added a random number to your stats to make you unique i'm not promissing it's going
+to help though!""")
 print()
 input("Press any key to start...")
 clear()
@@ -84,7 +92,8 @@ clear()
 chest = ["Chocolate", "Tin Opener", "Frog Skin"]
 invent = []
 
-print("Your walking though some woods (does'nt get any better then this)... suddenly you trip over... you gance down expecting a mushroom, but find a CHEST!")
+print("""Your walking though some woods (does'nt get any better then this)... suddenly you trip over... you gance down
+expecting a mushroom, but find a CHEST!""")
 print()
 print("What would you like to do? OPEN the chest or WALK on?")
 print()
@@ -172,11 +181,106 @@ print("Theres movement up ahead, your not sure what it is but you know it wants 
 print()
 print("You've some decisions to make...")
 print()
-print("Your not equiped for battle, you can fight anyway or try to run like a coward. Or you can hope to have something usefull in your pocket")
+print("""Your not equiped for battle, you can fight anyway or try to run like a coward. Or you can hope to have something
+usefull in your pocket""")
 print()
 choice = input("Please type 'fight', 'run' or 'invent' > ")
 
 if choice == "fight":
+    # build enemy stats
+
+    e_health = 100
+    e_strength, e_luck = buildenemy()
+
+    # create attack scores
+
+    c_attack = c_strength / 2
+    e_attack = e_strength / 2
+
+    # compare stats
+    clear()
+    print(f"""{c_name} here are your stats:
+    
+    Strength    :   {c_strength}
+    Luck        :   {c_luck}
+    Attack      :   {c_attack}
+    
+    Here are the enemy stats:
+
+    Strength    :   {e_strength}
+    Luck        :   {e_luck}
+    Attack      :   {e_attack}
+
+    """)
+    print()
+    input("Press any key to start the fight!...")
+    clear()
+
+    # start battle
+
+    if c_luck > e_luck:
+        # character goes first
+        while not health > 0 or e_health > 0:
+            print(f"{c_name} goes first and strikes a hit of {c_attack}")
+            print()
+            e_health = e_health - c_attack
+            print(f"Enemy's health is reduced to {e_health}")
+            print()
+            time.sleep(1)
+            print(f"Enemy goes next and strikes a hit of {e_attack}")
+            print()
+            health = health - e_attack
+            print(f"{c_name}'s health is reduced to {health}")
+            print()
+            time.sleep(1)
+
+        if health <= 0:
+            #character is dead
+            clear()
+            print("Your dead!")
+
+        else:
+            #enemy is dead
+            clear()
+            print("You WIN! you've left the enemy looking like mushy peas!")
+    elif c_luck < e_luck:
+        # enemy goes first
+        while not health > 0 or e_health > 0:
+            print(f"Enemy goes first and strikes a hit of {e_attack}")
+            print()
+            health = health - e_attack
+            print(f"{c_name}'s health is reduced to {health}")
+            print()
+            time.sleep(1)
+            print(f"{c_name} goes next and strikes a hit of {c_attack}")
+            print()
+            e_health = e_health - c_attack
+            print(f"Enemy's health is reduced to {e_health}")
+            print()
+            time.sleep(1)
+
+        if health <= 0 and health < e_health:
+            #character is dead
+            clear()
+            print("Your dead!")
+            print()
+            input("Press any key to die...")
+
+        else:
+            #enemy is dead
+            clear()
+            print("You WIN! you've left the enemy looking like mushy peas!")
+            print()
+            input("Press any key to continue...")
+    else:
+        c_combined = c_strength + c_luck
+        e_combined = e_strength + e_luck
+        if c_combined > e_combined:
+            # character goes first
+            print()
+        else:
+            # enemy goes first
+            print()
     print()
 elif choice == "run":
     if c_luck >= 50:
