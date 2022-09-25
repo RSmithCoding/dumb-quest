@@ -220,7 +220,7 @@ if choice == "fight":
 
     if c_luck > e_luck:
         # character goes first
-        while not health > 0 or e_health > 0:
+        while True:
             print(f"{c_name} goes first and strikes a hit of {c_attack}")
             print()
             e_health = e_health - c_attack
@@ -233,19 +233,29 @@ if choice == "fight":
             print(f"{c_name}'s health is reduced to {health}")
             print()
             time.sleep(1)
+            if health <= 0:
+                break
+            elif e_health <= 0:
+                break
 
-        if health <= 0:
-            #character is dead
-            clear()
-            print("Your dead!")
+        if health <= 0 or e_health <= 0:
+            if health < e_health:
+                #character is dead
+                clear()
+                print("Your dead!")
+                print()
+                input("Press any key to die...")
 
-        else:
-            #enemy is dead
-            clear()
-            print("You WIN! you've left the enemy looking like mushy peas!")
+            elif health > e_health:
+                #enemy is dead
+                clear()
+                print("You WIN! you've left the enemy looking like mushy peas!")
+                print()
+                input("Press any key to continue...")
+
     elif c_luck < e_luck:
         # enemy goes first
-        while not health > 0 or e_health > 0:
+        while True:
             print(f"Enemy goes first and strikes a hit of {e_attack}")
             print()
             health = health - e_attack
@@ -258,20 +268,25 @@ if choice == "fight":
             print(f"Enemy's health is reduced to {e_health}")
             print()
             time.sleep(1)
+            if health <= 0:
+                break
+            elif e_health <= 0:
+                break
 
-        if health <= 0 and health < e_health:
-            #character is dead
-            clear()
-            print("Your dead!")
-            print()
-            input("Press any key to die...")
+        if health <= 0 or e_health <= 0:
+            if health < e_health:
+                #character is dead
+                clear()
+                print("Your dead!")
+                print()
+                input("Press any key to die...")
 
-        else:
-            #enemy is dead
-            clear()
-            print("You WIN! you've left the enemy looking like mushy peas!")
-            print()
-            input("Press any key to continue...")
+            elif health > e_health:
+                #enemy is dead
+                clear()
+                print("You WIN! you've left the enemy looking like mushy peas!")
+                print()
+                input("Press any key to continue...")
     else:
         c_combined = c_strength + c_luck
         e_combined = e_strength + e_luck
@@ -320,3 +335,5 @@ else:
 
 clear()
 print("END CREDITS")
+print()
+input("Press a key to quit...(We know you'll be back for more!)...")
