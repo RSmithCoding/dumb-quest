@@ -6,7 +6,7 @@ import time
 
 
 def clear():
-    os.system('cls')
+    os.system('clear')
 
 
 def buildenemy():
