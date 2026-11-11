@@ -51,18 +51,30 @@ c_name = input("> ")
 while points != 0:
     points = 50
     clear()
-    print(
-        f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
-    print()
-    c_strength = input("Please set your characters Strength: ")
-    points = points - int(c_strength)
-    clear()
-    print(
-        f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
-    print()
-    c_luck = input("Please set your characters Luck: ")
-    points = points - int(c_luck)
 
+    try:
+        print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+        print()
+        c_strength = int(input("Please set your characters Strength: "))
+        points = points - c_strength
+        if points > 0:
+            print("Please only use up to 50 points")
+        clear()
+        
+    except ValueError:
+        print("Please enter a whole number..")
+        continue
+    try:    
+        print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+        print()
+        c_luck = int(input("Please set your characters Luck: "))
+        points = points - c_luck
+        if points > 0:
+            print("Please only use the available points you have left..")
+    except ValueError:
+        print("Please enter a whole number..")
+        continue
+    
     if points != 0:
         print()
         print(f"You still have {points} points left please restart")
