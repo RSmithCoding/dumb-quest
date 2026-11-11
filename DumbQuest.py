@@ -56,25 +56,55 @@ while points != 0:
         print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
         print()
         c_strength = int(input("Please set your characters Strength: "))
-        points = points - c_strength
-        if points > 0:
-            print("Please only use up to 50 points")
-        clear()
-        
+        if 0 <= c_strength <= 50:
+            points = points - c_strength
+            print()
+            pass
+        else:
+            input("This needs to be a value between 0 - 50, press any key to retry..")
+            continue
     except ValueError:
-        print("Please enter a whole number..")
+        input("Please enter a valid number between 0 - 50, press any key to retry..")
         continue
-    try:    
+
+    try:
         print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
         print()
         c_luck = int(input("Please set your characters Luck: "))
-        points = points - c_luck
-        if points > 0:
-            print("Please only use the available points you have left..")
+        if 0 <= c_luck <= points:
+            print()
+            break
+        else:
+            input(f"You can only use the {points} points you have left, press any key to retry..")
+            continue
     except ValueError:
-        print("Please enter a whole number..")
+        input("Please enter a valid number, press any key to retry..")    
         continue
-    
+
+    # try:
+    #     print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+    #     print()
+    #     c_strength = int(input("Please set your characters Strength: "))
+    #     points = points - c_strength
+    #     if points < 0:
+    #         print("Please only use up to 50 points")
+            
+    #     clear()
+        
+    # except ValueError:
+    #     print("Please enter a whole number..")
+    #     continue
+    # try:    
+    #     print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+    #     print()
+    #     c_luck = int(input("Please set your characters Luck: "))
+    #     points = points - c_luck
+    #     if points < 0:
+    #         print("Please only use the available points you have left..")
+    # except ValueError:
+    #     print("Please enter a whole number..")
+    #     continue
+
     if points != 0:
         print()
         print(f"You still have {points} points left please restart")
@@ -84,8 +114,8 @@ while points != 0:
 
 # Stat adjusting
 
-c_strength = int(c_strength) + random.randint(1, 25)
-c_luck = int(c_luck) + random.randint(1, 25)
+c_strength = c_strength + random.randint(1, 25)
+c_luck = c_luck + random.randint(1, 25)
 
 
 clear()
@@ -99,7 +129,7 @@ print(f"Strength:   {c_strength}")
 print()
 print(f"Luck:       {c_luck}")
 print()
-print("""Confused? You should be. We've added a random number to your stats to make you unique i'm not promissing it's going
+print("""Confused? You should be. We've added a random number to your stats to make you unique i'm not promising it's going
 to help though!""")
 print()
 input("Press any key to start...")
@@ -110,7 +140,7 @@ clear()
 chest = ["Chocolate", "Tin Opener", "Frog Skin"]
 invent = []
 
-print("""Your walking though some woods (does'nt get any better then this)... suddenly you trip over... you gance down
+print("""You're walking through some woods (doesn't get any better than this)... suddenly you trip over... you glance down
 expecting a mushroom, but find a CHEST!""")
 print()
 print("What would you like to do? OPEN the chest or WALK on?")
@@ -195,12 +225,12 @@ print("You continue on your epic quest, with excitement around every corner you 
 print()
 input("Press any key if you dare...")
 clear()
-print("Theres movement up ahead, your not sure what it is but you know it wants a fight")
+print("There's movement up ahead, you're not sure what it is but you know it wants a fight")
 print()
 print("You've some decisions to make...")
 print()
-print("""Your not equiped for battle, you can fight anyway or try to run like a coward. Or you can hope to have something
-usefull in your pocket""")
+print("""You're not equipped for battle, you can fight anyway or try to run like a coward. Or you can hope to have something
+useful in your pocket""")
 print()
 choice = input("Please type 'fight', 'run' or 'invent' > ")
 
@@ -327,13 +357,13 @@ elif choice == "run":
     if c_luck >= 50:
         clear()
         print("You try your luck and attempt to run...")
-        time.sleep(3)
+        time.sleep(1)
         print()
         print("You manage to escape unharmed well done!")
     else:
         clear()
         print("You try your luck and attempt to run...")
-        time.sleep(3)
+        time.sleep(1)
         print()
         print("You escaped but not without harm")
         print()
