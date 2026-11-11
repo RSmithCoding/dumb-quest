@@ -53,13 +53,13 @@ while points != 0:
     clear()
 
     try:
-        print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+        print(f"Please enter your characters Strength and Luck using your 50 points; you have {points} left")
         print()
         c_strength = int(input("Please set your characters Strength: "))
         if 0 <= c_strength <= 50:
             points = points - c_strength
             print()
-            pass
+            
         else:
             input("This needs to be a value between 0 - 50, press any key to retry..")
             continue
@@ -68,10 +68,10 @@ while points != 0:
         continue
 
     try:
-        print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
+        print(f"Please enter your characters Strength and Luck using your 50 points; you have {points} left")
         print()
         c_luck = int(input("Please set your characters Luck: "))
-        if 0 <= c_luck <= points:
+        if c_luck == points:
             print()
             break
         else:
@@ -81,36 +81,7 @@ while points != 0:
         input("Please enter a valid number, press any key to retry..")    
         continue
 
-    # try:
-    #     print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
-    #     print()
-    #     c_strength = int(input("Please set your characters Strength: "))
-    #     points = points - c_strength
-    #     if points < 0:
-    #         print("Please only use up to 50 points")
-            
-    #     clear()
-        
-    # except ValueError:
-    #     print("Please enter a whole number..")
-    #     continue
-    # try:    
-    #     print(f"Please enter your characters Strengh and Luck using your 50 points; you have {points} left")
-    #     print()
-    #     c_luck = int(input("Please set your characters Luck: "))
-    #     points = points - c_luck
-    #     if points < 0:
-    #         print("Please only use the available points you have left..")
-    # except ValueError:
-    #     print("Please enter a whole number..")
-    #     continue
-
-    if points != 0:
-        print()
-        print(f"You still have {points} points left please restart")
-        print()
-        input("Press any key to continue...")
-
+    
 
 # Stat adjusting
 
@@ -147,7 +118,7 @@ print("What would you like to do? OPEN the chest or WALK on?")
 print()
 choice = input("Please type 'open' or 'walk' > ")
 
-while choice != "open" or "walk":
+while True:
 
     if choice == "open":
         clear()
@@ -159,35 +130,33 @@ while choice != "open" or "walk":
         print()
         choice_take = input("Please type 'some', 'all' or 'none' > ")
         if choice_take == "some":
-            print()
-            print("Please type each item you would like or 'done' when finished")
-            print()
-            take_item = input("Type the item from the chest to keep >")
-            if take_item != "done":
-                for take_item in chest:
+
+            while True:
+                
+                print()
+                print("Please type each item you would like or 'done' when finished")
+                print()
+                take_item = input("Type the item from the chest to keep >").title()
+
+                if take_item == "Done":
+                    break
+                    
+                elif take_item in chest:
                     chest.remove(take_item)
                     invent.append(take_item)
-                    print()
-                    print("Item added to Inventory")
-                    print()
-                    print(
-                        "Please type each item you would like or 'done' when finished")
-                    print()
-                    take_item = input("Type the item from the chest to keep >")
-                    if take_item == "done":
-                        clear()
-                        print("this is your inventory:")
-                        print(invent)
-                        print()
-                        print("this is the chest:")
-                        print(chest)
-                        print()
-                        input("Press any key to continue...")
-                        break
-            elif take_item == "done":
-                print("ready for next chapter")
-                print()
-                input("Please press a key to continue")
+                    input(f"The item {take_item} was added to your inventory, press a key to continue..")
+                else:
+                    input("Please type an item that is in the chest or 'done' press any key to continue..")
+            clear()
+            print("this is your inventory:")
+            print(invent)
+            print()
+            print("this is the chest:")
+            print(chest)
+            print()
+            input("Press any key to continue...")    
+            break
+
         elif choice_take == "all":
             clear()
             invent = [item for item in chest]
@@ -199,12 +168,13 @@ while choice != "open" or "walk":
             print(chest)
             print()
             input("Press any key to continue...")
+            break
 
         elif choice_take == "none":
             print("ready for next chapter")
             break
         else:
-            choice_take = input("Please type 'some', 'all' or 'none' > ")
+            input("Please type 'some', 'all' or 'none', press any key to continue..")
 
     elif choice == "walk":
         clear()
